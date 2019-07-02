@@ -42,7 +42,11 @@ export default function DropzonePage(props: DropzonePageProps) {
   return (
     <Wrapper>
       <H1 color="white">Upload an audio file to get started...</H1>
-      <Dropzone onTrigger={handleDropzoneTrigger} onDrop={handleSelectFile} illustration={<img src={uploadIconUrl} title="Upload icon" alt="Upload icon" />}></Dropzone>
+      <Dropzone
+        onTrigger={handleDropzoneTrigger}
+        onDrop={handleSelectFile}
+        illustration={<img src={uploadIconUrl} title="Upload icon" alt="Upload icon" />}
+      />
     </Wrapper>
   );
 }
