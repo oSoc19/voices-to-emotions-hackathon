@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { H1, H2 } from '@blazingly-design/heading';
 
 import Dropzone from '../components/dropzone';
+import uploadIconUrl from '../images/upload-icon.svg';
 
 export type DropzonePageProps = {
   onFileUpload: (file: FileList) => any;
@@ -40,7 +41,7 @@ export default function DropzonePage(props: DropzonePageProps) {
   return (
     <Wrapper>
       <H1 color="white">Upload an audio file to get started...</H1>
-      <Dropzone onTrigger={handleDropzoneTrigger} onDrop={handleSelectFile}></Dropzone>
+      <Dropzone onTrigger={handleDropzoneTrigger} onDrop={handleSelectFile} illustration={<img src={uploadIconUrl} title="Upload icon" alt="Upload icon" />}></Dropzone>
     </Wrapper>
   );
 }
