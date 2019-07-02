@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { H1, H2 } from '@blazingly-design/heading';
 
 import Dropzone from '../components/dropzone';
+// @ts-ignore
 import uploadIconUrl from '../images/upload-icon.svg';
 
 export type DropzonePageProps = {
