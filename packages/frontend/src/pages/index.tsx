@@ -12,9 +12,23 @@ export type FileUploadItem = {
 
 const Main = styled.main(() => {
   return {
-    maxWidth: 960,
     padding: 20,
-    margin: '0 auto'
+    margin: '0 auto',
+    width: '100vw',
+    minHeight: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'grey'
+  };
+});
+
+const PageWrapper = styled.main(() => {
+  return {
+    backgroundColor: 'blue',
+    borderRadius: 10,
+    padding: 50,
+    width: 960
   };
 });
 
@@ -24,7 +38,9 @@ export default function IndexPage() {
   return (
     <>
       <SEO title="Home" />
-      <Main>{file ? <ResultPage file={file} /> : <DropzonePage onFileUpload={setFile} />}</Main>
+      <Main>
+        <PageWrapper>{file ? <ResultPage file={file} /> : <DropzonePage onFileUpload={setFile} />}</PageWrapper>
+      </Main>
     </>
   );
 }

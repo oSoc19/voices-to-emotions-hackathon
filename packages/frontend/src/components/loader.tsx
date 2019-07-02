@@ -2,6 +2,11 @@ import * as React from 'react';
 import { keyframes } from '@emotion/core';
 import styled from '@emotion/styled';
 
+export type PropsType = {
+  finished?: boolean;
+  positive?: boolean;
+};
+
 const pulseAnimation = keyframes`
   0% {
     transform: scale3d(1, 1, 1);
@@ -28,20 +33,22 @@ const Circle = styled.div(() => {
   };
 });
 
-const OuterCircle = styled.div(() => {
+const OuterCircle = styled.div(({ finished, positive }) => {
   return {
     position: 'absolute',
     width: 400,
     height: 400,
     borderRadius: 200,
     zIndex: 1001,
-    backgroundColor: `rgba(255, 0, 0, 0.5)`,
-    animation: `${pulseAnimation} 3s infinite`,
-    animationTimingFunction: 'linear'
+    backgroundColor: positive ? `rgba(0, 255, 0, 0.5)` : `rgba(255, 0, 0, 0.5)`,
+    animation: `${pulseAnimation} 3s`,
+    animationTimingFunction: 'linear',
+    transition: 'background-color 3s ease',
+    animationIterationCount: finished ? '' : 'infinite'
   };
 });
 
-const InnerCircle = styled.div(() => {
+const InnerCircle = styled.div(({ finished, positive }) => {
   return {
     display: 'flex',
     justifyContent: 'center',
@@ -50,17 +57,21 @@ const InnerCircle = styled.div(() => {
     height: 300,
     borderRadius: 150,
     zIndex: 1002,
-    backgroundColor: `rgba(255, 0, 0, 0.5)`,
-    animation: `${pulseAnimation} 5s infinite`,
-    animationTimingFunction: 'linear'
+    backgroundColor: positive ? `rgba(0, 255, 0, 0.5)` : `rgba(255, 0, 0, 0.5)`,
+    animation: `${pulseAnimation} 5s`,
+    animationTimingFunction: 'linear',
+    transition: 'background-color 3s ease',
+    animationIterationCount: finished ? '' : 'infinite'
   };
 });
 
-export default function Loader() {
+export default function Loader(props: PropsType) {
+  let { finished, positive } = props;
+
   return (
     <Circle>
-      <InnerCircle />
-      <OuterCircle />
+      <InnerCircle finished={finished} positive={positive} />
+      <OuterCircle finished={finished} positive={positive} />
     </Circle>
   );
 }
