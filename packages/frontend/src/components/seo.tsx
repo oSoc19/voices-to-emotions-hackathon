@@ -78,7 +78,7 @@ export default function SEO(props: Props) {
           }
         ].concat(meta)}
       />
-      <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"></link>
+      <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
     </>
   );
 }
