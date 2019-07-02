@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { H1, H2 } from '@blazingly-design/heading';
 
 import Dropzone from '../components/dropzone';
 
@@ -10,7 +11,7 @@ export type DropzonePageProps = {
 const Wrapper = styled.div(() => {
   return {
     display: 'grid',
-    textAlign: 'center'
+    gridGap: 50
   };
 });
 
@@ -38,8 +39,7 @@ export default function DropzonePage(props: DropzonePageProps) {
 
   return (
     <Wrapper>
-      <h1>Voices To Emotions</h1>
-      <h2>Upload an audio file to get started...</h2>
+      <H1 color="white">Upload an audio file to get started...</H1>
       <Dropzone onTrigger={handleDropzoneTrigger} onDrop={handleSelectFile}></Dropzone>
     </Wrapper>
   );

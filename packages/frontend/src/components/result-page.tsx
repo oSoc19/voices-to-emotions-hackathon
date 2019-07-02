@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { H1, H2 } from '@blazingly-design/heading';
+import Paragraph from '@blazingly-design/paragraph';
 
 import Loader from '../components/loader';
 
@@ -15,7 +17,25 @@ export type DropzonePageProps = {
 const Wrapper = styled.div(() => {
   return {
     display: 'grid',
-    textAlign: 'center'
+    textAlign: 'center',
+    gridGap: 40
+  };
+});
+
+const TextBalloon = styled.div<{ hasContent: boolean }>(({ hasContent }) => {
+  return {
+    marginTop: 50,
+    display: 'inline-block',
+    padding: 15,
+    textAlign: 'left',
+    backgroundColor: '#D81E5B',
+    borderRadius: '10px 10px 10px 0',
+    transition: 'max-width 5s, max-height 5s',
+    maxHeight: hasContent ? '100%' : 0,
+    maxWidth: hasContent ? '100%' : 0,
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden'
   };
 });
 
@@ -28,22 +48,22 @@ export default function DropzonePage(props: DropzonePageProps) {
   React.useEffect(() => {
     setTimeout(() => {
       setRes({
-        text: 'Thank you for calling.',
+        text: 'This should be a transcript of the audio file...',
         emotion: 0.3
       });
     }, 2500);
   }, [true]);
 
   return (
-    <Wrapper>
-      {res ? <h1>Result</h1> : <h1>Loading</h1>}
-      <Loader finished={!!res} positive={res ? res.emotion < 0.5 : undefined} />
-      {res && (
-        <div>
-          <h2>Analysed Text</h2>
-          <p>{res.text}</p>
-        </div>
-      )}
-    </Wrapper>
+    <>
+      <Wrapper>
+        <Loader finished={!!res} positive={res ? res.emotion < 0.5 : undefined}>
+          {res ? Math.round(res.emotion * 100) : ''}
+        </Loader>
+      </Wrapper>
+      <TextBalloon hasContent={!!res}>
+        <Paragraph color="white">{res ? res.text : ''}</Paragraph>
+      </TextBalloon>
+    </>
   );
 }

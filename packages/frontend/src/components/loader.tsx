@@ -5,6 +5,12 @@ import styled from '@emotion/styled';
 export type PropsType = {
   finished?: boolean;
   positive?: boolean;
+  children?: React.ReactNode;
+};
+
+export type CircleType = {
+  finished?: boolean;
+  positive?: boolean;
 };
 
 const pulseAnimation = keyframes`
@@ -33,7 +39,7 @@ const Circle = styled.div(() => {
   };
 });
 
-const OuterCircle = styled.div(({ finished, positive }) => {
+const OuterCircle = styled.div<CircleType>(({ finished, positive }) => {
   return {
     position: 'absolute',
     width: 400,
@@ -48,7 +54,7 @@ const OuterCircle = styled.div(({ finished, positive }) => {
   };
 });
 
-const InnerCircle = styled.div(({ finished, positive }) => {
+const InnerCircle = styled.div<CircleType>(({ finished, positive }) => {
   return {
     display: 'flex',
     justifyContent: 'center',
@@ -61,16 +67,21 @@ const InnerCircle = styled.div(({ finished, positive }) => {
     animation: `${pulseAnimation} 5s`,
     animationTimingFunction: 'linear',
     transition: 'background-color 3s ease',
-    animationIterationCount: finished ? '' : 'infinite'
+    animationIterationCount: finished ? '' : 'infinite',
+    fontFamily: 'roboto',
+    color: '#FFFFFF',
+    fontSize: '100px'
   };
 });
 
 export default function Loader(props: PropsType) {
-  let { finished, positive } = props;
+  let { finished, positive, children } = props;
 
   return (
     <Circle>
-      <InnerCircle finished={finished} positive={positive} />
+      <InnerCircle finished={finished} positive={positive}>
+        {children}
+      </InnerCircle>
       <OuterCircle finished={finished} positive={positive} />
     </Circle>
   );

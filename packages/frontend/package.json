@@ -5,6 +5,9 @@
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "@blazingly-design/heading": "^0.0.14",
+    "@blazingly-design/paragraph": "^0.0.14",
+    "@blazingly-design/theming": "^0.0.14",
     "@emotion/core": "^10.0.14",
     "@emotion/styled": "^10.0.14",
     "@types/react-helmet": "^5.0.8",

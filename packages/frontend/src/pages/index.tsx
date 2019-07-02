@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { ThemeProvider } from '@blazingly-design/theming';
 
 import SEO from '../components/seo';
 import DropzonePage from '../components/dropzone-page';
@@ -18,16 +19,15 @@ const Main = styled.main(() => {
     minHeight: '100vh',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'grey'
+    justifyContent: 'center'
   };
 });
 
 const PageWrapper = styled.main(() => {
   return {
-    backgroundColor: 'blue',
+    backgroundColor: '#7325F3',
     borderRadius: 10,
-    padding: 50,
+    padding: 100,
     width: 960
   };
 });
@@ -36,11 +36,11 @@ export default function IndexPage() {
   let [file, setFile] = React.useState<FileList | null>(null);
 
   return (
-    <>
+    <ThemeProvider>
       <SEO title="Home" />
       <Main>
         <PageWrapper>{file ? <ResultPage file={file} /> : <DropzonePage onFileUpload={setFile} />}</PageWrapper>
       </Main>
-    </>
+    </ThemeProvider>
   );
 }
