@@ -1,4 +1,4 @@
 {
-  "packages": ["packages/*", "storybook"],
-  "version": "0.0.14"
+  "packages": ["packages/*"],
+  "version": "1.0.0"
 }
