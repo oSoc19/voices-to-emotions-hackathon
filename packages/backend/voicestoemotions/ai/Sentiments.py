@@ -84,7 +84,7 @@ def main():
     model.add(Flatten())
     model.add(Dense(512))
 
-    model.add(Activation('relu'))
+    model.add(Activation('hard_sigmoid'))
     model.add(Dropout(0.5))
 
     model.add(Dense(8, activation='softmax'))
@@ -100,7 +100,7 @@ def main():
         validation_data=validate_generator,
         steps_per_epoch=step_size_generator,
         validation_steps=step_size_validate,
-        epochs=50,
+        epochs=100,
         use_multiprocessing=True,
         callbacks=[EarlyStopping(monitor='loss', mode='min', verbose=1, patience=5)]
     )
