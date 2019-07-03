@@ -1,3 +1,6 @@
 [submodule "voices-to-emotions-dataset"]
 	path = voices-to-emotions-dataset
 	url = https://github.com/oSoc19/voices-to-emotions-hackathon.git
+[submodule "voices-to-emotions-hackathon"]
+	path = voices-to-emotions-hackathon
+	url = https://github.com/oSoc19/voices-to-emotions-hackathon.git
