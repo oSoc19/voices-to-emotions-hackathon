@@ -9,6 +9,7 @@ from keras.optimizers import Adam
 from keras.preprocessing import sequence
 from keras.preprocessing.text import Tokenizer
 from keras.utils import to_categorical
+from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 from sklearn.model_selection import train_test_split
 
 from nltk.tokenize import word_tokenize
@@ -16,6 +17,17 @@ from nltk import FreqDist
 from nltk.stem import WordNetLemmatizer
 
 import re
+
+def append_ext(fn):
+  return fn + ".png"
+
+index_file = pandas.read_csv('./index.csv')
+
+emotions = ['angry', 'fearful', 'disgust', 'sad', 'happy', 'neutral', 'calm', 'surprised']
+
+datagen = ImageDataGenerator()
+
+
 
 def opkuisen(kolom):
     wnl = WordNetLemmatizer()

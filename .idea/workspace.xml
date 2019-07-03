@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2edf4ba2-4bec-4a55-a6ea-03ff73a927e9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/not backend/Sentiments.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/not backend/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/MVP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MVP.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/voicestoemotions/ai/Sentiments.py" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/voicestoemotions/ai/Sentiments.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,11 +16,25 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/not backend/Sentiments.py">
-          <provider selected="true" editor-type-id="text-editor" />
+        <entry file="file://$PROJECT_DIR$/packages/backend/voicestoemotions/ai/Sentiments.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4539">
+              <caret line="267" selection-start-line="267" selection-end-line="267" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -27,6 +43,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/not backend/Sentiments.py" />
+        <option value="$PROJECT_DIR$/packages/backend/voicestoemotions/ai/Sentiments.py" />
       </list>
     </option>
   </component>
@@ -64,7 +81,34 @@
             <path>
               <item name="MVP" type="b2602c69:ProjectViewProjectNode" />
               <item name="MVP" type="462c0819:PsiDirectoryNode" />
-              <item name="not backend" type="462c0819:PsiDirectoryNode" />
+              <item name="packages" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MVP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MVP" type="462c0819:PsiDirectoryNode" />
+              <item name="packages" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MVP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MVP" type="462c0819:PsiDirectoryNode" />
+              <item name="packages" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="voicestoemotions" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MVP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MVP" type="462c0819:PsiDirectoryNode" />
+              <item name="packages" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="voicestoemotions" type="462c0819:PsiDirectoryNode" />
+              <item name="ai" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MVP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MVP" type="462c0819:PsiDirectoryNode" />
+              <item name="packages" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -84,6 +128,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -107,12 +152,20 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1562142483464</updated>
-      <workItem from="1562142490305" duration="245000" />
+      <workItem from="1562142490305" duration="4487000" />
     </task>
+    <task id="LOCAL-00001" summary="added example source code">
+      <created>1562142849716</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1562142849716</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="245000" />
+    <option name="totallyTimeSpent" value="4487000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -123,13 +176,13 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" />
-      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Version Control" visible="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Python Console" />
       <window_info anchor="bottom" id="Terminal" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32936078" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -144,9 +197,30 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added example source code" />
+    <option name="LAST_COMMIT_MESSAGE" value="added example source code" />
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/not backend/Sentiments.py">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="23" column="19" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/backend/voicestoemotions/ai/Sentiments.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4539">
+          <caret line="267" selection-start-line="267" selection-end-line="267" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
   </component>
 </project>
