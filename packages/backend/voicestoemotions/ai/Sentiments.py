@@ -24,7 +24,7 @@ import re
 def main():
     gc.collect()
 
-    data_dir = os.path.abspath('../../../../voices-to-emotions/voices-to-emotions-dataset')
+    data_dir = os.path.abspath('../../../../voices-to-emotions')
     index_df = pandas.read_csv(os.path.join(data_dir, 'index.csv'))
 
     # emotions = ['angry', 'fearful', 'disgust', 'sad', 'happy', 'neutral', 'calm', 'surprised']
@@ -86,7 +86,7 @@ def main():
     Dense(8, activation='softmax')])
 
     model.compile(optimizer=Adam(lr=0.001), loss="categorical_crossentropy", metrics=["accuracy"])
-    model.fit_generator(generator=train_generator, validation_data=validate_generator, steps_per_epoch=(train_generator.n // train_generator.batch_size), validation_steps=(train_generator.n // train_generator.batch_size), epochs=150, callbacks=[EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=5)])
+    model.fit_generator(generator=train_generator, validation_data=validate_generator, steps_per_epoch=(train_generator.n // train_generator.batch_size), validation_steps=(train_generator.n // train_generator.batch_size), epochs=5, callbacks=[EarlyStopping(monitor='loss', mode='min', verbose=1, patience=5)])
 
     model_json = model.to_json()
     with open("model.json", "w") as json_file:
