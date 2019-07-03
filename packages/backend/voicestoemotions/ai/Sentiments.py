@@ -84,7 +84,7 @@ def main():
         validation_data=validate_generator,
         steps_per_epoch=step_size_generator,
         validation_steps=step_size_validate,
-        epochs=50,
+        epochs=100,
         use_multiprocessing=True,
         callbacks=[EarlyStopping(monitor='loss', mode='min', verbose=1, patience=5)]
     )
