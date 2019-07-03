@@ -3,7 +3,7 @@ import os
 
 import pandas
 
-from keras.layers import Dense, Conv2D, Activation, MaxPooling2D, Dropout, Flatten, BatchNormalization
+from keras.layers import Dense, Conv2D, Activation, MaxPooling2D, Dropout, Flatten
 from keras.models import Sequential
 from keras.optimizers import Adam
 from keras.preprocessing.image import ImageDataGenerator
@@ -58,26 +58,10 @@ def main():
     model = Sequential()
 
     model.add(Conv2D(32, (3, 3), padding='same', input_shape=(64, 64, 3)))
-    model.add(Activation('relu'))
-
-    model.add(Conv2D(64, (3, 3)))
-    model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.25))
 
     model.add(Conv2D(64, (3, 3), padding='same'))
-    model.add(Activation('relu'))
-
-    model.add(Conv2D(64, (3, 3)))
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.5))
-
-    model.add(Conv2D(128, (3, 3), padding='same'))
-    model.add(Activation('relu'))
-
-    model.add(Conv2D(128, (3, 3)))
-    model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.5))
 
@@ -105,18 +89,20 @@ def main():
         callbacks=[EarlyStopping(monitor='loss', mode='min', verbose=1, patience=5)]
     )
 
-    model_json = model.to_json()
-    with open("model.json", "w") as json_file:
-        json_file.write(model_json)
-    model.save_weights("model.h5")
+    print('Model Done Training!')
 
-    print('Model Completed!')
+    model.save('model.h5')
+
+    print('Model Saved!')
+
     print('Evaluating model...')
 
     test_steps = test_generator.n / test_generator.batch_size
     scores = model.evaluate_generator(generator=test_generator, steps=test_steps, verbose=1, use_multiprocessing=True)
     print(scores)
     print("Accuracy %.2f%%" % (scores[1] * 100))
+
+    del model
 
 
 if __name__ == "__main__":
