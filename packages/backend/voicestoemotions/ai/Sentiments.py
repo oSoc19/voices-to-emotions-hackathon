@@ -89,18 +89,20 @@ def main():
         callbacks=[EarlyStopping(monitor='loss', mode='min', verbose=1, patience=5)]
     )
 
-    model_json = model.to_json()
-    with open("model.json", "w") as json_file:
-        json_file.write(model_json)
-    model.save_weights("model.h5")
+    print('Model Done Training!')
 
-    print('Model Completed!')
+    model.save('model.h5')
+
+    print('Model Saved!')
+
     print('Evaluating model...')
 
     test_steps = test_generator.n / test_generator.batch_size
     scores = model.evaluate_generator(generator=test_generator, steps=test_steps, verbose=1, use_multiprocessing=True)
     print(scores)
     print("Accuracy %.2f%%" % (scores[1] * 100))
+
+    del model
 
 
 if __name__ == "__main__":
