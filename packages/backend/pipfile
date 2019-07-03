@@ -16,6 +16,8 @@ pandas = "*"
 tensorflow = "*"
 pip = "*"
 pillow = "*"
+matplotlib = "*"
+librosa = "*"
 
 [requires]
 python_version = "3.7"
