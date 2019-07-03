@@ -2,7 +2,8 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from django.http import JsonResponse
 from django.core.files.storage import FileSystemStorage
-from .speechtoimage import graph_spectrogram
+from .speechtoimage import create_spectrogram
+import os
 
 @api_view(['POST'])
 def upload_file(request):
@@ -12,7 +13,15 @@ def upload_file(request):
         filename = fs.save(myfile.name, myfile)
         uploaded_file_url = fs.url(filename)
 
-        graph_spectrogram(uploaded_file_url)
+        create_spectrogram(uploaded_file_url)
 
-        return JsonResponse(uploaded_file_url,safe=False)
+        os.remove(uploaded_file_url)
+
+        newName = uploaded_file_url.split(".")[0] + ".png"
+
+        result = "no AI yet" # send newName to AI
+
+        os.remove(newName)
+
+        return JsonResponse(result,safe=False)
     return JsonResponse("oops something wrong")
