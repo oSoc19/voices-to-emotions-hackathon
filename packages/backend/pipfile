@@ -7,13 +7,15 @@ verify_ssl = true
 
 [packages]
 django = "*"
-keras = "*"
-gc = "*"
 numpy = "*"
-pandas = "*"
+keras = "*"
+panda = "*"
 sklearn = "*"
 nltk = "*"
-re = "*"
+pandas = "*"
+tensorflow = "*"
+pip = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.7"

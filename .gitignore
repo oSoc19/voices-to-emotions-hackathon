@@ -71,3 +71,8 @@ yarn.lock
 .yarn-integrity
 
 .idea
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+Pipfile.lock

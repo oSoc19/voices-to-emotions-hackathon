@@ -1,17 +1,32 @@
 import React from 'react';
+import axios from 'axios';
 import styled from '@emotion/styled';
-import { H1, H2 } from '@blazingly-design/heading';
 import Paragraph from '@blazingly-design/paragraph';
 
 import Loader from '../components/loader';
 
+export type EmotionType = 'neutral' | 'calm' | 'happy' | 'surprised' | 'sad' | 'angry' | 'fearful' | 'disgust';
+
 export type ResultType = {
   text: string;
-  emotion: number;
+  emotion: EmotionType;
 };
 
 export type DropzonePageProps = {
   file: FileList;
+};
+
+export const positiveEmotions = ['neutral', 'calm', 'happy'];
+
+export const emojiMap = {
+  neutral: require('../images/neutral.svg'),
+  calm: require('../images/calm.svg'),
+  happy: require('../images/happy.svg'),
+  surprised: require('../images/surprised.svg'),
+  sad: require('../images/sad.svg'),
+  angry: require('../images/angry.svg'),
+  fearful: require('../images/fearful.svg'),
+  disgust: require('../images/disgust.svg')
 };
 
 const Wrapper = styled.div(() => {
@@ -46,19 +61,39 @@ export default function DropzonePage(props: DropzonePageProps) {
   if (!file) throw new Error('no file...');
 
   React.useEffect(() => {
-    setTimeout(() => {
-      setRes({
-        text: 'This should be a transcript of the audio file...',
-        emotion: 0.3
-      });
-    }, 2500);
+    const getResult = async () => {
+      try {
+        let res = await axios.post('http://localhost:8000/', {
+          data: {
+            myfile: file[0]
+          }
+        });
+
+        if (!res.data.text || !res.data.emotion) {
+          throw new Error('Invalid API Response');
+        }
+
+        setRes(res.data);
+      } catch (e) {
+        console.error(e);
+
+        setTimeout(() => {
+          setRes({
+            text: 'This is dummy data, because the api is offline. This makes me sad.',
+            emotion: 'sad'
+          });
+        }, 2500);
+      }
+    };
+
+    getResult();
   }, [true]);
 
   return (
     <>
       <Wrapper>
-        <Loader finished={!!res} positive={res ? res.emotion < 0.5 : undefined}>
-          {res ? Math.round(res.emotion * 100) : ''}
+        <Loader finished={!!res} positive={res ? positiveEmotions.includes(res.emotion) : undefined}>
+          {res ? <img src={emojiMap[res.emotion]} alt={res.emotion} title={res.emotion} /> : ''}
         </Loader>
       </Wrapper>
       <TextBalloon hasContent={!!res}>
