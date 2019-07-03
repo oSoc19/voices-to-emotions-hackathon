@@ -24,8 +24,8 @@ import re
 def main():
     gc.collect()
 
-    data_dir = os.path.abspath('../../../../voices-to-emotions')
-    index_df = pandas.read_csv(os.path.join(data_dir, 'index.csv'))
+    data_dir = os.path.abspath('../../../../voices-to-emotions/voices-to-emotions-dataset')
+    index_df = pandas.read_csv(os.path.join(data_dir, 'index_goodbad.csv'))
 
     # emotions = ['angry', 'fearful', 'disgust', 'sad', 'happy', 'neutral', 'calm', 'surprised']
 
@@ -60,33 +60,21 @@ def main():
     #     seed=42,
     #     target_size=(223, 221))
 
+
     model = Sequential([
     Conv2D(32, (3, 3), padding='same', input_shape=(223, 221, 3)),
-    Activation('relu'),
-    Conv2D(64, (3, 3)),
-    Activation('relu'),
     MaxPooling2D(pool_size=(2, 2)),
     Dropout(0.25),
     Conv2D(64, (3, 3), padding='same'),
-    Activation('relu'),
-    Conv2D(64, (3, 3)),
-    Activation('relu'),
-    MaxPooling2D(pool_size=(2, 2)),
-    Dropout(0.5),
-    Conv2D(128, (3, 3), padding='same'),
-    Activation('relu'),
-    Conv2D(128, (3, 3)),
-    Activation('relu'),
     MaxPooling2D(pool_size=(2, 2)),
     Dropout(0.5),
     Flatten(),
     Dense(512),
     Activation('relu'),
     Dropout(0.5),
-    Dense(8, activation='softmax')])
-
+    Dense(2, activation='softmax')])
     model.compile(optimizer=Adam(lr=0.001), loss="categorical_crossentropy", metrics=["accuracy"])
-    model.fit_generator(generator=train_generator, validation_data=validate_generator, steps_per_epoch=(train_generator.n // train_generator.batch_size), validation_steps=(train_generator.n // train_generator.batch_size), epochs=5, callbacks=[EarlyStopping(monitor='loss', mode='min', verbose=1, patience=5)])
+    model.fit_generator(generator=train_generator, validation_data=validate_generator, steps_per_epoch=15, validation_steps=15, epochs=50, callbacks=[EarlyStopping(monitor='loss', mode='min', verbose=1, patience=5)])
 
     model_json = model.to_json()
     with open("model.json", "w") as json_file:
