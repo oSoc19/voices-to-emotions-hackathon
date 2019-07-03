@@ -20,7 +20,7 @@ def main():
 
     datagen = ImageDataGenerator(width_shift_range=0.6)
 
-    train = index_df.iloc[:round(len(index_df)*.6)]
+    train = index_df.iloc[:round(len(index_df) * .6)]
     validate = index_df.iloc[round(len(index_df) * .6):]
     test = index_df.iloc[round(len(index_df) * .9):]
 
@@ -56,6 +56,12 @@ def main():
         Dropout(0.3),
         BatchNormalization(),
 
+        Conv2D(32, (3, 3), padding='same', input_shape=(223, 221, 3)),
+        Activation('relu'),
+        MaxPooling2D(pool_size=(2, 2)),
+        Dropout(0.3),
+        BatchNormalization(),
+
         Conv2D(64, (3, 3), padding='same', input_shape=(223, 221, 3)),
         Activation('relu'),
         MaxPooling2D(pool_size=(2, 2)),
@@ -65,22 +71,20 @@ def main():
         Flatten(),
         Dropout(0.2),
 
-        Dense(256, kernel_constraint=maxnorm(3)),
-        Activation('relu'),
-        Dropout(0.2),
-        BatchNormalization(),
+        # Dense(64, kernel_constraint=maxnorm(3)),
+        # Activation('relu'),
+        # Dropout(0.3),
+        # BatchNormalization(),
 
-        Dense(128, kernel_constraint=maxnorm(3)),
-        Activation('relu'),
-        Dropout(0.2),
-        BatchNormalization(),
+        # Dense(128, kernel_constraint=maxnorm(3)),
+        # Activation('relu'),
+        # Dropout(0.2),
+        # BatchNormalization(),
 
         Dense(class_num),
         Activation('hard_sigmoid'),
-        Dropout(0.2),
-        BatchNormalization(),
 
-        Activation('relu')
+        # Activation('relu')
     ])
     model.compile(optimizer=Adam(lr=0.001), loss="categorical_crossentropy", metrics=["accuracy"])
     model.fit_generator(generator=train_generator, validation_data=validate_generator, steps_per_epoch=15,
@@ -95,7 +99,7 @@ def main():
     print('Model Completed!')
     print('Evaluating model...')
 
-    test_steps = test_generator.n/test_generator.batch_size
+    test_steps = test_generator.n / test_generator.batch_size
     scores = model.evaluate_generator(generator=test_generator, steps=test_steps, verbose=1, use_multiprocessing=True)
     print(scores)
     print("Accuracy %.2f%%" % (scores[1] * 100))
