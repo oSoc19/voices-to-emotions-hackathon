@@ -13,7 +13,7 @@ from keras.callbacks import EarlyStopping
 def main():
     gc.collect()
 
-    data_dir = os.path.abspath('../../../../voices-to-emotions')
+    data_dir = os.path.abspath('./dataset')
     index_df = pandas.read_csv(os.path.join(data_dir, 'index.csv'))
 
     datagen = ImageDataGenerator(rescale=1. / 255., validation_split=0.25)
