@@ -32,7 +32,6 @@ const Circle = styled.div(() => {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    cursor: 'pointer',
     width: 400,
     height: 400,
     margin: '0 auto'
