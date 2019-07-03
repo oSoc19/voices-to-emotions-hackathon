@@ -8,17 +8,15 @@ from keras.models import Sequential
 from keras.optimizers import Adam
 from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import EarlyStopping
-from keras.constraints import maxnorm
 
 
 def main():
     gc.collect()
 
     data_dir = os.path.abspath('../../../../voices-to-emotions')
-    index_df = pandas.read_csv(os.path.join(data_dir, 'index_goodbad.csv'))
-    class_num = 2
+    index_df = pandas.read_csv(os.path.join(data_dir, 'index.csv'))
 
-    datagen = ImageDataGenerator(width_shift_range=0.6)
+    datagen = ImageDataGenerator(rescale=1. / 255., validation_split=0.25)
 
     train = index_df.iloc[:round(len(index_df) * .6)]
     validate = index_df.iloc[round(len(index_df) * .6):]
@@ -29,67 +27,83 @@ def main():
         directory=data_dir,
         x_col="file_path",
         y_col="emotion",
+        batch_size=32,
         seed=42,
+        shuffle=True,
         class_mode="categorical",
-        target_size=(223, 221))
+        target_size=(64, 64))
 
     validate_generator = datagen.flow_from_dataframe(
         dataframe=validate,
         directory=data_dir,
         x_col="file_path",
         y_col="emotion",
+        batch_size=32,
         seed=42,
-        target_size=(223, 221))
+        shuffle=True,
+        class_mode="categorical",
+        target_size=(64, 64))
 
     test_generator = datagen.flow_from_dataframe(
         dataframe=test,
         directory=data_dir,
         x_col="file_path",
         y_col="emotion",
+        batch_size=32,
         seed=42,
-        target_size=(223, 221))
+        shuffle=True,
+        class_mode="categorical",
+        target_size=(64, 64))
 
-    model = Sequential([
-        Conv2D(32, (3, 3), padding='same', input_shape=(223, 221, 3)),
-        Activation('relu'),
-        MaxPooling2D(pool_size=(2, 2)),
-        Dropout(0.3),
-        BatchNormalization(),
+    model = Sequential()
 
-        Conv2D(32, (3, 3), padding='same', input_shape=(223, 221, 3)),
-        Activation('relu'),
-        MaxPooling2D(pool_size=(2, 2)),
-        Dropout(0.3),
-        BatchNormalization(),
+    model.add(Conv2D(32, (3, 3), padding='same', input_shape=(64, 64, 3)))
+    model.add(Activation('relu'))
 
-        Conv2D(64, (3, 3), padding='same', input_shape=(223, 221, 3)),
-        Activation('relu'),
-        MaxPooling2D(pool_size=(2, 2)),
-        Dropout(0.3),
-        BatchNormalization(),
+    model.add(Conv2D(64, (3, 3)))
+    model.add(Activation('relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout(0.25))
 
-        Flatten(),
-        Dropout(0.2),
+    model.add(Conv2D(64, (3, 3), padding='same'))
+    model.add(Activation('relu'))
 
-        # Dense(64, kernel_constraint=maxnorm(3)),
-        # Activation('relu'),
-        # Dropout(0.3),
-        # BatchNormalization(),
+    model.add(Conv2D(64, (3, 3)))
+    model.add(Activation('relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout(0.5))
 
-        # Dense(128, kernel_constraint=maxnorm(3)),
-        # Activation('relu'),
-        # Dropout(0.2),
-        # BatchNormalization(),
+    model.add(Conv2D(128, (3, 3), padding='same'))
+    model.add(Activation('relu'))
 
-        Dense(class_num),
-        Activation('hard_sigmoid'),
+    model.add(Conv2D(128, (3, 3)))
+    model.add(Activation('relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout(0.5))
 
-        # Activation('relu')
-    ])
+    model.add(Flatten())
+    model.add(Dense(512))
+
+    model.add(Activation('relu'))
+    model.add(Dropout(0.5))
+
+    model.add(Dense(8, activation='softmax'))
+
     model.compile(optimizer=Adam(lr=0.001), loss="categorical_crossentropy", metrics=["accuracy"])
-    model.fit_generator(generator=train_generator, validation_data=validate_generator, steps_per_epoch=15,
-                        validation_steps=15, epochs=50, use_multiprocessing=True,
-                        callbacks=[EarlyStopping(monitor='loss', mode='min', verbose=1, patience=4)])
+    model.summary()
+
+    step_size_generator = train_generator.n // train_generator.batch_size
+    step_size_validate = validate_generator.n // validate_generator.batch_size
+
+    model.fit_generator(
+        generator=train_generator,
+        validation_data=validate_generator,
+        steps_per_epoch=step_size_generator,
+        validation_steps=step_size_validate,
+        epochs=50,
+        use_multiprocessing=True,
+        callbacks=[EarlyStopping(monitor='loss', mode='min', verbose=1, patience=5)]
+    )
 
     model_json = model.to_json()
     with open("model.json", "w") as json_file:
