@@ -16,7 +16,7 @@ export type DropzonePageProps = {
   file: FileList;
 };
 
-export const positiveEmotions = ['neutral', 'calm', 'happy', 'surprised'];
+export const positiveEmotions = ['neutral', 'calm', 'happy'];
 
 export const emojiMap = {
   neutral: require('../images/neutral.svg'),
