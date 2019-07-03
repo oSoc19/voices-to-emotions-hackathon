@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from rest_framework.decorators import api_view
+#from rest_framework.decorators import api_view
 from django.http import JsonResponse
 
-@api_view(['POST'])
+#@api_view(['POST'])
 def upload_file(request):
     if request.method == 'POST':
         #handle_uploaded_file(request.FILES['file'])
