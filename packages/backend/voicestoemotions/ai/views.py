@@ -19,7 +19,7 @@ def upload_file(request):
 
         newName = uploaded_file_url.split(".")[0] + ".png"
 
-        result = "no AI yet" # send newName to AI
+        result = {'text':"text","emotions":"sad"} # send newName to AI
 
         os.remove(newName)
 
