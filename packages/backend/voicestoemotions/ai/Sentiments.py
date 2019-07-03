@@ -69,7 +69,7 @@ def main():
         # BatchNormalization(),
 
         Dense(class_num),
-        Activation('selu'),
+        Activation('hard_sigmoid'),
     ])
     model.compile(optimizer=Adam(lr=0.001), loss="categorical_crossentropy", metrics=["accuracy"])
     model.fit_generator(generator=train_generator, validation_data=validate_generator, steps_per_epoch=15,
