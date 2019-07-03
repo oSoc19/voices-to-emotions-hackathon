@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import styled from '@emotion/styled';
 import Paragraph from '@blazingly-design/paragraph';
 
@@ -60,12 +61,32 @@ export default function DropzonePage(props: DropzonePageProps) {
   if (!file) throw new Error('no file...');
 
   React.useEffect(() => {
-    setTimeout(() => {
-      setRes({
-        text: 'I am a very sad person in a very sad world.',
-        emotion: 'sad'
-      });
-    }, 2500);
+    const getResult = async () => {
+      try {
+        let res = await axios.post('http://localhost:8000/', {
+          data: {
+            myfile: file[0]
+          }
+        });
+
+        if (!res.data.text || !res.data.emotion) {
+          throw new Error('Invalid API Response');
+        }
+
+        setRes(res.data);
+      } catch (e) {
+        console.error(e);
+
+        setTimeout(() => {
+          setRes({
+            text: 'This is dummy data, because the api is offline. This makes me sad.',
+            emotion: 'sad'
+          });
+        }, 2500);
+      }
+    };
+
+    getResult();
   }, [true]);
 
   return (
