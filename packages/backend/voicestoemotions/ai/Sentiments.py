@@ -1,4 +1,5 @@
 import gc
+import os
 
 import numpy
 import pandas
@@ -21,14 +22,6 @@ import re
 def append_ext(fn):
   return fn + ".png"
 
-index_file = pandas.read_csv('./index.csv')
-
-emotions = ['angry', 'fearful', 'disgust', 'sad', 'happy', 'neutral', 'calm', 'surprised']
-
-datagen = ImageDataGenerator()
-
-
-
 def opkuisen(kolom):
     wnl = WordNetLemmatizer()
     toReturn = []
@@ -46,9 +39,50 @@ def opkuisen(kolom):
 def main():
     gc.collect()
 
-    train = pandas.read_csv('./files/train.tsv', sep='\t')
-    test = pandas.read_csv('./files/test.tsv', sep='\t')
-    sample = pandas.read_csv('./files/sampleSubmission.csv')
+    data_dir = os.path.abspath('../../../../voices-to-emotions')
+    index_df = pandas.read_csv(os.path.join(data_dir, 'index.csv'))
+
+    emotions = ['angry', 'fearful', 'disgust', 'sad', 'happy', 'neutral', 'calm', 'surprised']
+
+    datagen = ImageDataGenerator()
+
+    train, validate, test = numpy.split(index_df.sample(frac=1), [int(.6 * len(index_df)), int(.8 * len(index_df))])
+
+    train_generator = datagen.flow_from_dataframe(
+        dataframe=train,
+        directory=data_dir,
+        x_col="file_path",
+        y_col="emotion",
+        subset="training",
+        batch_size=32,
+        seed=42,
+        shuffle=True,
+        class_mode="categorical",
+        target_size=(19, 12))
+
+    validate_generator = datagen.flow_from_dataframe(
+        dataframe=validate,
+        directory=data_dir,
+        x_col="file_path",
+        y_col="emotion",
+        subset="training",
+        batch_size=32,
+        seed=42,
+        shuffle=True,
+        class_mode="categorical",
+        target_size=(19, 12))
+
+    test_generator = datagen.flow_from_dataframe(
+        dataframe=test,
+        directory=data_dir,
+        x_col="file_path",
+        y_col="emotion",
+        subset="training",
+        batch_size=32,
+        seed=42,
+        shuffle=True,
+        class_mode="categorical",
+        target_size=(19, 12))
 
     test["Sentiment"] = -1
 
