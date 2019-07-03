@@ -32,6 +32,16 @@ const PageWrapper = styled.main(() => {
   };
 });
 
+const GoBackButton = styled.div(() => {
+  return {
+    color: '#FFFFFF',
+    fontFamily: 'roboto',
+    fontSize: '2rem',
+    textTransform: 'uppercase',
+    marginBottom: 50
+  };
+});
+
 export default function IndexPage() {
   let [file, setFile] = React.useState<FileList | null>(null);
 
@@ -39,7 +49,16 @@ export default function IndexPage() {
     <ThemeProvider>
       <SEO title="Home" />
       <Main>
-        <PageWrapper>{file ? <ResultPage file={file} /> : <DropzonePage onFileUpload={setFile} />}</PageWrapper>
+        <PageWrapper>
+          {file ? (
+            <>
+              <GoBackButton onClick={() => setFile(null)}>Upload another file</GoBackButton>
+              <ResultPage file={file} />
+            </>
+          ) : (
+            <DropzonePage onFileUpload={setFile} />
+          )}
+        </PageWrapper>
       </Main>
     </ThemeProvider>
   );
