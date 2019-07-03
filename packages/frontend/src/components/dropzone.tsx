@@ -20,10 +20,10 @@ let DropzoneContainer = styled.div<DropzoneProps>(({ isDragging }) => {
     gridTemplateAreas: '"illustration" "heading" "content"',
     border: '2px dashed',
     borderRadius: '10px',
-    color: isDragging ? '#4495FF' : '#FFFFFF',
+    color: isDragging ? '#f5f55e' : '#FFFFFF',
     fontFamily: 'roboto',
     outline: 'none',
-    borderColor: isDragging ? '#4495FF' : '#FFFFFF'
+    borderColor: isDragging ? '#f5f55e' : '#FFFFFF'
   };
 });
 
