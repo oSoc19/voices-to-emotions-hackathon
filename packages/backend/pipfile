@@ -13,6 +13,7 @@ panda = "*"
 sklearn = "*"
 nltk = "*"
 pandas = "*"
+tensorflow = "*"
 
 [requires]
 python_version = "3.7"
