@@ -3,7 +3,7 @@ import os
 
 import pandas
 
-from keras.layers import Dense, Conv2D, Activation, MaxPooling2D, Dropout, Flatten, BatchNormalization
+from keras.layers import Dense, Conv2D, Activation, MaxPooling2D, Dropout, Flatten
 from keras.models import Sequential
 from keras.optimizers import Adam
 from keras.preprocessing.image import ImageDataGenerator
@@ -58,26 +58,10 @@ def main():
     model = Sequential()
 
     model.add(Conv2D(32, (3, 3), padding='same', input_shape=(64, 64, 3)))
-    model.add(Activation('relu'))
-
-    model.add(Conv2D(64, (3, 3)))
-    model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.25))
 
     model.add(Conv2D(64, (3, 3), padding='same'))
-    model.add(Activation('relu'))
-
-    model.add(Conv2D(64, (3, 3)))
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.5))
-
-    model.add(Conv2D(128, (3, 3), padding='same'))
-    model.add(Activation('relu'))
-
-    model.add(Conv2D(128, (3, 3)))
-    model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.5))
 
@@ -100,7 +84,7 @@ def main():
         validation_data=validate_generator,
         steps_per_epoch=step_size_generator,
         validation_steps=step_size_validate,
-        epochs=100,
+        epochs=50,
         use_multiprocessing=True,
         callbacks=[EarlyStopping(monitor='loss', mode='min', verbose=1, patience=5)]
     )
