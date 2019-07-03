@@ -17,6 +17,7 @@ We should use some conventions for the commit messages. We could use this one:
 ```
 
 **Types** :
+
 - **feat** : A new feature
 - **fix** : A bug
 - **chore** : A new recurent task
@@ -30,12 +31,12 @@ We should use some conventions for the commit messages. We could use this one:
 
 **Body** : More detail description
 
-
 ## pipenv
 
-In order to have the same environement, we will use [pipenv](https://github.com/pypa/pipenv). In order to install it  *pip install pipenv*
+In order to have the same environement, we will use [pipenv](https://github.com/pypa/pipenv). In order to install it _pip install pipenv_
 
 Some useful commands:
+
 - **pipenv install --dev** : Install all dependencies
-- **pipenv install** *< nom package >* : Installer a new dependence
-- **pipenv run python** *< nom fichier.py >* : Run a python file in the environment
+- **pipenv install** _< nom package >_ : Installer a new dependence
+- **pipenv run python** _< nom fichier.py >_ : Run a python file in the environment
