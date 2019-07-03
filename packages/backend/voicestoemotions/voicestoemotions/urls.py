@@ -16,7 +16,11 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.urls import path
+from rest_framework import routers
+
+from ai.views import upload_file
+
 
 urlpatterns = [
-    url('^',include("ai.urls")),
+    url(r'^$', upload_file),
 ]
