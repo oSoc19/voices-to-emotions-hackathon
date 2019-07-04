@@ -5,6 +5,7 @@ import { ThemeProvider } from '@blazingly-design/theming';
 import SEO from '../components/seo';
 import DropzonePage from '../components/dropzone-page';
 import ResultPage from '../components/result-page';
+import theme from '../constants/theme';
 
 export type FileUploadItem = {
   file: File;
@@ -32,32 +33,15 @@ const PageWrapper = styled.main(() => {
   };
 });
 
-const GoBackButton = styled.div(() => {
-  return {
-    color: '#FFFFFF',
-    fontFamily: 'roboto',
-    fontSize: '2rem',
-    textTransform: 'uppercase',
-    marginBottom: 50
-  };
-});
-
 export default function IndexPage() {
   let [file, setFile] = React.useState<FileList | null>(null);
 
   return (
-    <ThemeProvider>
+    <ThemeProvider theme={theme}>
       <SEO title="Home" />
       <Main>
         <PageWrapper>
-          {file ? (
-            <>
-              <GoBackButton onClick={() => setFile(null)}>Upload another file</GoBackButton>
-              <ResultPage file={file} />
-            </>
-          ) : (
-            <DropzonePage onFileUpload={setFile} />
-          )}
+          {file ? <ResultPage file={file} setFile={setFile} /> : <DropzonePage onFileUpload={setFile} />}
         </PageWrapper>
       </Main>
     </ThemeProvider>
