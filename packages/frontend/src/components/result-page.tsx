@@ -26,8 +26,6 @@ export type DropzonePageProps = {
   setFile: (file: FileList | null) => any;
 };
 
-export const positiveEmotions = ['neutral', 'calm', 'happy'];
-
 export const emojiMap = {
   neutral: require('../images/neutral.svg'),
   calm: require('../images/calm.svg'),
@@ -138,12 +136,15 @@ export default function DropzonePage(props: DropzonePageProps) {
       };
     });
 
+    // @ts-ignore
     let sortedEmotions = Object.keys(res.emotion).sort((a, b) => res.emotion[b] - res.emotion[a]);
+    // @ts-ignore
+    let selectedEmojiSVG = emojiMap[sortedEmotions[0]];
 
     return (
       <>
         <Wrapper>
-          <Image src={emojiMap[sortedEmotions[0]]} alt={sortedEmotions[0]} title={sortedEmotions[0]} />
+          <Image src={selectedEmojiSVG} alt={sortedEmotions[0]} title={sortedEmotions[0]} />
           <BarChart width={730} height={250} data={data}>
             <Tooltip />
             <XAxis dataKey="name" />
