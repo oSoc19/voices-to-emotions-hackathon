@@ -23,7 +23,7 @@ def upload_file(request):
 
         spectrogram_filename = create_spectrogram(uploaded_file_url)
 
-        prediction = get_prediction(spectrogram_filename)
+        prediction, mapped_predictions = get_prediction(spectrogram_filename)
 
         result = {
             'text': "Dogs are sitting by the door",

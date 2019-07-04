@@ -4,6 +4,8 @@ import os
 import numpy as np
 import pandas as pd
 
+def round_pred(n):
+    return round(n * 10000) / 10000
 
 def get_prediction(filepath):
     dir = os.path.dirname(filepath)
@@ -19,7 +21,6 @@ def get_prediction(filepath):
         directory=dir,
         x_col="file_path",
         y_col=None,
-        subset="training",
         batch_size=1,
         class_mode=None,
         target_size=(64, 64)
@@ -27,9 +28,18 @@ def get_prediction(filepath):
 
     pred = loaded_model.predict_generator(test_gen, steps=1, verbose=1)
 
-    print('Predictions')
-    print(pred)
-
     emotions = ['angry', 'fearful', 'disgust', 'sad', 'surprised', 'happy', 'calm', 'neutral']
 
-    return emotions[np.argmax(pred, axis=1)[0]]
+    # TODO: Find a better solution for this. Google Cloud will probably do this for us anyway...
+    mapped_emotions = {
+        'angry': round_pred(pred[0][0]),
+        'fearful': round_pred(pred[0][1]),
+        'disgust': round_pred(pred[0][2]),
+        'sad': round_pred(pred[0][3]),
+        'surprised': round_pred(pred[0][4]),
+        'happy': round_pred(pred[0][5]),
+        'calm': round_pred(pred[0][6]),
+        'neutral': round_pred(pred[0][7])
+    }
+
+    return emotions[np.argmax(pred, axis=1)[0]], mapped_emotions
