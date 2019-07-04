@@ -75,7 +75,7 @@ const Image = styled.img(() => {
     margin: '0 auto',
     marginBottom: 50
   };
-})
+});
 
 export default function DropzonePage(props: DropzonePageProps) {
   let { file, setFile } = props;
@@ -143,7 +143,7 @@ export default function DropzonePage(props: DropzonePageProps) {
     return (
       <>
         <Wrapper>
-        <Image src={emojiMap[sortedEmotions[0]]} alt={sortedEmotions[0]} title={sortedEmotions[0]} />
+          <Image src={emojiMap[sortedEmotions[0]]} alt={sortedEmotions[0]} title={sortedEmotions[0]} />
           <BarChart width={730} height={250} data={data}>
             <Tooltip />
             <XAxis dataKey="name" />
@@ -154,7 +154,9 @@ export default function DropzonePage(props: DropzonePageProps) {
           <Paragraph color="white">{res.text}</Paragraph>
         </TextBalloon>
         <ButtonContainer>
-          <Button buttonType="secondary" onSubmit={() => setFile(null)}>Upload another file</Button>
+          <Button buttonType="secondary" onSubmit={() => setFile(null)}>
+            Upload another file
+          </Button>
         </ButtonContainer>
       </>
     );
