@@ -34,7 +34,7 @@ def upload_file(request):
 
         result = {
             'text': "Dogs are sitting by the door",
-            'emotion': prediction
+            'emotion': mapped_predictions
         }
 
         return JsonResponse(result, safe=False)
