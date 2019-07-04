@@ -35,12 +35,12 @@ def main():
     validation_generator = train_datagen.flow_from_dataframe(
         dataframe=train,
         directory=data_dir,
-        subset="validation",
         x_col="file_path",
         y_col="emotion",
         batch_size=32,
         seed=42,
         shuffle=True,
+        subset="validation",
         class_mode="categorical",
         target_size=(64, 64))
 
@@ -106,8 +106,8 @@ def main():
 
     test_steps = test_generator.n / test_generator.batch_size
     scores = model.evaluate_generator(generator=test_generator, steps=test_steps, verbose=1, use_multiprocessing=True)
-    print(scores)
-    print("Accuracy %.2f%%" % (scores[1] * 100))
+
+    print("Model accuracy %.2f%%" % (scores[1] * 100))
 
     del model
 
