@@ -60,14 +60,21 @@ export default function DropzonePage(props: DropzonePageProps) {
 
   if (!file) throw new Error('no file...');
 
+
   React.useEffect(() => {
     const getResult = async () => {
       try {
-        let res = await axios.post('http://localhost:8000/', {
-          data: {
-            myfile: file[0]
+        let data = new FormData();
+        data.append("myfile", file[0][0]);
+
+        let res = await axios.post('http://localhost:8000/', 
+          data,
+          {
+            headers: {
+              "content-type": "multipart/form-data"
+            }
           }
-        });
+        );
 
         if (!res.data.text || !res.data.emotion) {
           throw new Error('Invalid API Response');

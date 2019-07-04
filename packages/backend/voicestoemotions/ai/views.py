@@ -11,11 +11,18 @@ upload_dir = './uploaded'
 
 @api_view(['POST'])
 def upload_file(request):
+    print(len(request.FILES))
     if request.method == 'POST' and request.FILES['myfile']:
+
+        print(request.FILES['myfile'])
+
         file_name = datetime.datetime.now().isoformat() + '.wav'
+        file_name = file_name.replace(":","-")
         save_path = os.path.join(upload_dir, file_name)
 
         myfile = request.FILES['myfile']
+
+        print(myfile)
 
         fs = FileSystemStorage()
         filename = fs.save(save_path, myfile)
@@ -27,7 +34,7 @@ def upload_file(request):
 
         result = {
             'text': "Dogs are sitting by the door",
-            'emotions': prediction
+            'emotion': prediction
         }
 
         return JsonResponse(result, safe=False)
