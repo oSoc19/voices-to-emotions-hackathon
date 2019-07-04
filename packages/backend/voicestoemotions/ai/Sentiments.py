@@ -79,7 +79,7 @@ def main():
         validation_steps=step_size_validate,
         epochs=100,
         use_multiprocessing=True,
-        # callbacks=[EarlyStopping(monitor='loss', mode='min', verbose=1, patience=5)]
+        callbacks=[EarlyStopping(monitor='loss', mode='min', verbose=1, patience=5)]
     )
 
     gc.collect()
