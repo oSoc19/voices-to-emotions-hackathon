@@ -55,6 +55,8 @@ def main():
         class_mode="categorical",
         target_size=(64, 64))
 
+    gc.collect()
+
     model = Sequential()
 
     model.add(Conv2D(32, (3, 3), padding='same', input_shape=(64, 64, 3)))
@@ -76,6 +78,8 @@ def main():
     model.compile(optimizer=Adam(lr=0.001), loss="categorical_crossentropy", metrics=["accuracy"])
     model.summary()
 
+    gc.collect()
+
     step_size_generator = train_generator.n // train_generator.batch_size
     step_size_validate = validate_generator.n // validate_generator.batch_size
 
@@ -88,6 +92,8 @@ def main():
         use_multiprocessing=True,
         callbacks=[EarlyStopping(monitor='loss', mode='min', verbose=1, patience=5)]
     )
+
+    gc.collect()
 
     print('Model Done Training!')
 
@@ -103,6 +109,8 @@ def main():
     print("Accuracy %.2f%%" % (scores[1] * 100))
 
     del model
+
+    gc.collect()
 
 
 if __name__ == "__main__":
