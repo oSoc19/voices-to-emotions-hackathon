@@ -2,6 +2,7 @@ from rest_framework.decorators import api_view
 from django.http import JsonResponse
 from django.core.files.storage import FileSystemStorage
 from .speechtoimage import create_spectrogram
+from .Predict import get_prediction
 import os
 import datetime
 
@@ -22,11 +23,11 @@ def upload_file(request):
 
         spectrogram_filename = create_spectrogram(uploaded_file_url)
 
-        # TODO: Predict based on this filename
+        prediction = get_prediction(spectrogram_filename)
 
         result = {
-            'text': "text",
-            'emotions': "sad"
+            'text': "Dogs are sitting by the door",
+            'emotions': prediction
         }
 
         return JsonResponse(result, safe=False)

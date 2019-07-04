@@ -6,16 +6,17 @@ import pandas as pd
 
 
 def get_prediction(filepath):
+  dir = os.path.dirname(filepath)
+  file_name = os.path.basename(filepath)
+
+  df = pd.DataFrame([{ 'file_path': file_name }])
+
   loaded_model = load_model(os.path.abspath('./model.h5'))
-  csv_init = [{'file_path':filepath}]
-  df = pd.DataFrame(csv_init)
-  df.to_csv("./predict.csv")
-  testdf=pd.read_csv('./predict.csv',dtype=str)
 
   test_datagen=ImageDataGenerator(rescale=1./255.)
   test_gen = test_datagen.flow_from_dataframe(
-    dataframe=testdf,
-    directory=os.path.abspath(os.path.join(filepath, os.pardir)),
+    dataframe=df,
+    directory=dir,
     x_col="file_path",
     y_col=None,
     subset="training",
